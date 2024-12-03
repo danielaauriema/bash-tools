@@ -14,7 +14,7 @@ _bash_test_line(){
   elif [[ ! ( -z "$1"  || "${1:0:1}" == "#" )  ]]; then
     if [[ -z "$line" ]]; then
       echo "";
-    elif  eval "$1" 2>&1; then
+    elif  eval "$1" > /dev/null; then
         echo "OK    ${TEST_DESCRIPTION}";
     else
       echo "ERROR ${TEST_DESCRIPTION}";

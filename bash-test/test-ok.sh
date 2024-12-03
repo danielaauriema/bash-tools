@@ -6,7 +6,7 @@
 true
 
 + test 1.2
-true
+echo "ABCD --> bash-test!"
 
 @ Test section 2
 
