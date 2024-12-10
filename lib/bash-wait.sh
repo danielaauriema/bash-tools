@@ -9,7 +9,7 @@ bash_wait_for(){
       (( counter-- ))
   done
   if [[ "$counter" -le 0 ]]; then
-    echo "*** bash-wait timeout!" >&2
+    echo ">>> bash-wait timeout!" >&2
     false
   fi
 }

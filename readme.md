@@ -31,15 +31,31 @@ Example:
 @ Test section 1
 + test 1.1
 true
+
 + test 1.2
 true
-
-@ Test section 2
-+ test 2.1
-true
-+ test 2.2
-* BASH_WAIT_COUNTER=5
-echo "*** ${BASH_WAIT_COUNTER}" && [[ $BASH_WAIT_COUNTER -eq 2 ]]
 ```
 
 if all tests are passed, the script returns 0, otherwise it returns 1.
+
+## Bash Wait
+
+This will execute a command in loop until it succeed or it will fail if the timeout is reached.
+
+### bash_wait_for
+
+Accept a string as command follow by the times the command should execute and the delay.
+
+Defaults are 10 times every 1 second.
+
+```
+bash_wait_for <command> [times] [delay]
+```
+
+### bash_wait_for_connection
+
+Test if some specific port is listening for connections.
+
+```
+bash_wait_for_connection <host> <port> [times] [delay]
+```
