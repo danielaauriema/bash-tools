@@ -20,6 +20,7 @@ The syntax is just add a special character in the begging of the line. It actual
 
 - '@' Start a new test section;
 - '+' Add a test description for your scenario
+- '*' Run bash commands to prepare the test environment
 - Anything else is executed as a bash command. The test passes if the return code is zero.
 
 Example:
@@ -37,7 +38,8 @@ true
 + test 2.1
 true
 + test 2.2
-true
+* BASH_WAIT_COUNTER=5
+echo "*** ${BASH_WAIT_COUNTER}" && [[ $BASH_WAIT_COUNTER -eq 2 ]]
 ```
 
 if all tests are passed, the script returns 0, otherwise it returns 1.

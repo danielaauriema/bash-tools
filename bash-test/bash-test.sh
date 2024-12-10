@@ -1,8 +1,27 @@
 #!/bin/bash
 set -e
 
+BASH_WAIT_COUNTER=0
+BASH_WAIT_SLEEP=1
+
+_bash_wait_for(){
+  until (( BASH_WAIT_COUNTER <= 0 )) || eval "$1" > /dev/null; do
+      sleep "${BASH_WAIT_SLEEP}"
+      (( BASH_WAIT_COUNTER-- ))
+  done
+  (( BASH_WAIT_COUNTER > 0 ))
+}
+
 _bash_test_section(){
   echo "*** $1 ***"
+}
+
+_bash_test_eval(){
+    if [[ $BASH_WAIT_COUNTER -gt 0 ]]; then
+      _bash_wait_for "$1"
+    else
+      eval "$1" > /dev/null
+    fi;
 }
 
 _bash_test_line(){
@@ -11,10 +30,10 @@ _bash_test_line(){
     _bash_test_section "${1:2}"
   elif [ "$ls_prefix2" == "+ " ]; then
     TEST_DESCRIPTION="${1:2}"
+  elif [ "$ls_prefix2" == "* " ]; then
+    eval "${1:2}" > /dev/null
   elif [[ ! ( -z "$1"  || "${1:0:1}" == "#" )  ]]; then
-    if [[ -z "$line" ]]; then
-      echo "";
-    elif  eval "$1" > /dev/null; then
+    if _bash_test_eval "$1"; then
         echo "OK    ${TEST_DESCRIPTION}";
     else
       echo "ERROR ${TEST_DESCRIPTION}";
