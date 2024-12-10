@@ -1,0 +1,18 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Tests
+        run: chmod -R ugo+rwx ./test && cd test && ./test.sh
+        shell: bash
