@@ -16,8 +16,7 @@ bash_wait_for(){
 
 bash_wait_for_connection(){
   local host="${1}"
-  local port="${2}"
   local counter="${2:-10}"
   local delay="${3:-1}"
-  bash_wait_for "curl -s -t BOGUS telnet://${host}:${port} || [ \$? -eq 49 ]" "${counter}" "${delay}"
+  bash_wait_for "curl -s -t BOGUS telnet://${host} || [ \$? -eq 49 ]" "${counter}" "${delay}"
 }

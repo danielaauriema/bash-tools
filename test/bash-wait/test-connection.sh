@@ -9,7 +9,7 @@ docker pull postgres
 docker run --rm --name postgres_test -p "15432:5432" -e POSTGRES_PASSWORD=password -d postgres
 
 + wait for connection
-bash_wait_for_connection "localhost" "15432"
+bash_wait_for_connection "localhost:15432"
 
 + stop postgres container
 docker stop postgres_test
